@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Защита от фишинга</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+    <header class="popup-header">
+      <h1 class="popup-title">TrustGuard</h1>
+    </header>
+
+    <nav class="tabs">
+      <button type="button" class="tab active" data-tab="main">Главная</button>
+      <button type="button" class="tab" data-tab="about">О расширении</button>
+      <button type="button" class="tab" data-tab="check">Проверить</button>
+      <button type="button" class="tab" data-tab="training">Обучение</button>
+      <button type="button" class="tab" data-tab="settings">Настройки</button>
+      <button type="button" class="tab" data-tab="logs">Логи</button>
+    </nav>
+
+    <main class="content">
+      <!-- Главная -->
+      <section class="panel active" id="panel-main">
+        <div class="main-power-block">
+          <div class="main-power-image-wrap" id="main-power-image-wrap">
+            <img src="images/robotwhite.png" alt="" class="main-power-image" id="main-power-image">
+          </div>
+          <button type="button" class="round-power-btn" id="extension-enabled-btn" aria-pressed="true">Вкл</button>
+          <input type="checkbox" id="extension-enabled" checked hidden>
+        </div>
+        <div class="counter-block">
+          <span class="counter-label">Заблокировано сайтов</span>
+          <span class="counter-value" id="blocked-count">0</span>
+        </div>
+        <p class="rating-title" id="rating-title">Рейтинг вашей информационной безопасности</p>
+        <div class="rating-stars-wrap">
+          <img src="images/user.png" alt="" class="rating-user-icon">
+          <div class="stars-row" id="main-stars">
+            <span class="star" data-n="1"></span>
+            <span class="star" data-n="2"></span>
+            <span class="star" data-n="3"></span>
+            <span class="star" data-n="4"></span>
+            <span class="star" data-n="5"></span>
+          </div>
+        </div>
+        <div class="rating-desc" id="rating-desc"></div>
+      </section>
+
+      <!-- О расширении -->
+      <section class="panel" id="panel-about">
+        <article class="about-article">
+          <h2>Что умеет TrustGuard</h2>
+          <p class="about-intro">Кратко о каждой вкладке:</p>
+          <div class="about-block">
+            <h3>Главная</h3>
+            <p>Включение и выключение расширения кнопкой, счётчик заблокированных сайтов и ваш рейтинг безопасности (звёзды). По рейтингу показывается подсказка: как вы себя ведёте в интернете и что почитать.</p>
+          </div>
+          <div class="about-block">
+            <h3>Проверить</h3>
+            <p>Вставьте ссылку в поле — расширение подскажет, похожа ли страница на фишинг. Удобно проверять адреса из писем или сообщений перед переходом.</p>
+          </div>
+          <div class="about-block">
+            <h3>Обучение</h3>
+            <p>Небольшая статья: как распознать фишинг, на что смотреть в адресе и в письмах, как не попасться на уловки мошенников.</p>
+          </div>
+          <div class="about-block">
+            <h3>Настройки</h3>
+            <p>Выбор режима: жёсткий (подозрительные сайты блокируются сразу) или умный (расширение спрашивает: перейти или нет). Здесь же список сайтов-исключений, которые не блокировать.</p>
+          </div>
+          <div class="about-block">
+            <h3>Логи</h3>
+            <p>Список адресов, которые расширение заблокировало или пометило как опасные. Можно посмотреть, на какие сайты вы не попали.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Проверить -->
+      <section class="panel" id="panel-check">
+        <p class="check-desc">Вставьте или введите URL сайта для проверки на признаки фишинга.</p>
+        <input type="text" id="check-url-input" class="check-url-input" placeholder="https://example.com">
+        <button type="button" class="btn btn-primary" id="check-current">Проверить</button>
+        <div class="check-result" id="check-result"></div>
+      </section>
+
+      <!-- Обучение -->
+      <section class="panel" id="panel-training">
+        <article class="training-article">
+          <h2>Как распознать фишинг</h2>
+          <p><strong>Фишинг</strong> — это вид мошенничества, когда злоумышленники создают поддельные сайты и письма, чтобы выдать себя за банки, магазины или госслужбы и выманить ваши данные.</p>
+          <h3>На что обращать внимание</h3>
+          <ul>
+            <li><strong>Адрес сайта (URL).</strong> Проверяйте написание: часто используют похожие буквы (o и 0, l и 1), лишние поддомены (например, bank.ru.secure-site.com вместо bank.ru).</li>
+            <li><strong>Протокол.</strong> На страницах ввода паролей и платёжных данных должен быть HTTPS (замочек в адресной строке).</li>
+            <li><strong>Оформление и текст.</strong> Ошибки, кривой перевод, необычные просьбы «срочно ввести пароль» или «подтвердить карту» — частые признаки фишинга.</li>
+            <li><strong>Ссылки.</strong> Наведите курсор на ссылку и посмотрите внизу браузера, куда она ведёт. Если адрес не совпадает с названием компании — не переходите.</li>
+            <li><strong>Вложения и письма.</strong> Не открывайте вложения из писем от незнакомых отправителей и не переходите по ссылкам из таких писем.</li>
+          </ul>
+          <h3>Что делать</h3>
+          <p>Не вводите логины, пароли и данные карт на подозрительных страницах. Заходите на сайты банков и сервисов только через официальные приложения или введя адрес вручную. При сомнениях позвоните в поддержку организации по номеру с её официального сайта.</p>
+        </article>
+      </section>
+
+      <!-- Настройки -->
+      <section class="panel" id="panel-settings">
+        <div class="settings-block">
+          <h3>Режим работы</h3>
+          <div class="mode-cards">
+            <label class="mode-card" id="mode-card-strict">
+              <input type="radio" name="mode" value="strict" id="mode-strict">
+              <img src="images/robotred.png" alt="" class="mode-card-img">
+              <span class="mode-card-title">Жёсткий</span>
+              <span class="mode-card-desc">Блокировка сразу при переходе</span>
+            </label>
+            <label class="mode-card" id="mode-card-smart">
+              <input type="radio" name="mode" value="smart" id="mode-smart" checked>
+              <img src="images/robotyellow.png" alt="" class="mode-card-img">
+              <span class="mode-card-title">Умный</span>
+              <span class="mode-card-desc">Спрашивать: остановить переход или перейти всё равно</span>
+            </label>
+          </div>
+        </div>
+        <div class="settings-block exceptions-block">
+          <h3>Исключения</h3>
+          <p class="hint">Сайты из списка не будут блокироваться.</p>
+          <div class="add-exception">
+            <input type="text" id="exception-input" placeholder="Например: example.com">
+            <button type="button" class="btn btn-small" id="add-exception">Добавить</button>
+          </div>
+          <ul class="exceptions-list" id="exceptions-list"></ul>
+        </div>
+      </section>
+
+      <!-- Логи -->
+      <section class="panel" id="panel-logs">
+        <div class="logs-block">
+          <ul class="logs-list" id="blocked-logs"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

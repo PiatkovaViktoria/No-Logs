@@ -6,13 +6,16 @@
   "permissions": [
     "webRequest",
     "storage",
-    "tabs"
+    "tabs",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess"
   ],
   "host_permissions": [
     "<all_urls>",
     "https://safebrowsing.googleapis.com/*",
     "https://www.virustotal.com/*",
-    "https://www.virustotal.org/*"
+    "https://www.virustotal.org/*",
+    "https://generativelanguage.googleapis.com/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -20,12 +23,14 @@
   "content_scripts": [
     {
       "matches": ["https://mail.google.com/*"],
-      "js": ["content-mail.js"],
+      "js": ["contentGmail.js"],
+      "css": ["email-styles.css"],
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://e.mail.ru/*"],
-      "js": ["content-mail.js"],
+      "matches": ["https://e.mail.ru/*", "https://mail.ru/*"],
+      "js": ["contentMailru.js"],
+      "css": ["email-styles.css"],
       "run_at": "document_idle"
     }
   ],
@@ -35,7 +40,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["block.html"],
+      "resources": ["block.html", "email-styles.css"],
       "matches": ["<all_urls>"]
     }
   ]

@@ -1,5 +1,9 @@
 # TrustGuard - Антифишинг PRO
 
+Ссылка на скриншоты работы приложения
+https://disk.yandex.ru/d/oEZmqs53utWnaA
+
+
 Расширение для Google Chrome: проверка ссылок по локальной базе, Google Safe Browsing и VirusTotal. Защита в Gmail и Mail.ru, счётчик блокировок, страница-заглушка с кнопками «Назад» и «Всё равно перейти».
 
 ## Установка

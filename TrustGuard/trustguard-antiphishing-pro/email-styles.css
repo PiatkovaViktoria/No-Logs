@@ -1,0 +1,85 @@
+/**
+ * TrustGuard — стили индикаторов проверки писем (Gmail / Mail.ru).
+ * Цвета: зелёный 0–30, жёлтый 31–70, красный 71–100.
+ */
+#trustguard-email-badge {
+  margin: 8px 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+#trustguard-email-badge:hover {
+  opacity: 0.9;
+}
+/* Безопасно: 0–30 */
+#trustguard-email-badge.trustguard-safe {
+  background: rgba(40, 167, 69, 0.18);
+  color: #28a745;
+  border: 1px solid rgba(40, 167, 69, 0.5);
+}
+/* Осторожно: 31–70 */
+#trustguard-email-badge.trustguard-warning {
+  background: rgba(255, 193, 7, 0.18);
+  color: #d4a007;
+  border: 1px solid rgba(255, 193, 7, 0.5);
+}
+/* Опасность: 71–100 */
+#trustguard-email-badge.trustguard-danger {
+  background: rgba(220, 53, 69, 0.18);
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.5);
+}
+/* Иконка-кружок */
+#trustguard-email-badge .trustguard-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+#trustguard-email-badge.trustguard-safe .trustguard-dot { background: #28a745; }
+#trustguard-email-badge.trustguard-warning .trustguard-dot { background: #ffc107; }
+#trustguard-email-badge.trustguard-danger .trustguard-dot { background: #dc3545; }
+/* Всплывающая подсказка с причинами */
+#trustguard-email-tooltip {
+  position: fixed;
+  max-width: 360px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.45;
+  font-family: inherit;
+  background: #1a1a2e;
+  color: #e8e8e8;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  z-index: 2147483647;
+  white-space: normal;
+  pointer-events: none;
+}
+#trustguard-email-tooltip .trustguard-tooltip-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #fff;
+}
+#trustguard-email-tooltip .trustguard-tooltip-reasons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: #f8a5a5;
+}
+#trustguard-email-tooltip .trustguard-tooltip-reasons li {
+  margin: 4px 0;
+  padding-left: 12px;
+  position: relative;
+}
+#trustguard-email-tooltip .trustguard-tooltip-reasons li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+}

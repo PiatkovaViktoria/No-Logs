@@ -55,6 +55,8 @@
       padding: 10px;
       background: rgba(220, 53, 69, 0.15);
       border-radius: 8px;
+      white-space: pre-line;
+      text-align: left;
     }
     .blocked-url {
       word-break: break-all;
@@ -95,6 +97,13 @@
       color: #8f8f8f;
     }
     .counter-num { color: #6cce6c; font-weight: 700; }
+    .rating { margin-bottom: 16px; font-size: 0.95rem; color: #b0b0b0; }
+    .rating-num { color: #ffc107; font-weight: 700; }
+    .btn-safety {
+      background: #2d7a4f;
+      color: #fff;
+    }
+    .btn-safety:hover { background: #3d8a5f; }
   </style>
 </head>
 <body>
@@ -102,13 +111,15 @@
     <div class="icon">🛡️</div>
     <h1>Фишинговый сайт заблокирован</h1>
     <p class="message">TrustGuard предотвратил переход на опасный ресурс.</p>
+    <p class="rating">Ваш рейтинг безопасности: <span class="rating-num" id="rating-text">—</span> из 5</p>
     <p class="reason" id="reason">—</p>
     <p class="blocked-url" id="blocked-url">—</p>
     <div class="buttons">
       <button class="btn btn-back" id="btn-back">Назад</button>
       <button class="btn btn-go" id="btn-go">Всё равно перейти</button>
+      <button class="btn btn-safety" id="btn-safety" style="display: none;">Ознакомиться с безопасностью в интернете</button>
     </div>
-    <p class="counter">Всего заблокировано: <span class="counter-num" id="total-count">0</span></p>
+    <p class="counter">Всего заблокировано: <span class="counter-num" id="total-count">0</span> (за месяц: <span class="counter-num" id="month-count">0</span>)</p>
   </div>
   <script src="block.js"></script>
 </body>
