@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrustGuard - Антифишинг PRO</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      width: 380px;
+      min-height: 420px;
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 13px;
+      background: #1a1a2e;
+      color: #e8e8e8;
+    }
+    .header {
+      padding: 16px;
+      background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+    .section {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #888;
+      margin-bottom: 8px;
+    }
+    .counter-big {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #6cce6c;
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+    .status.on { background: rgba(40, 167, 69, 0.2); color: #6cce6c; }
+    .status.off { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+    .list {
+      max-height: 120px;
+      overflow-y: auto;
+    }
+    .list-item {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.85rem;
+      word-break: break-all;
+    }
+    .list-item:last-child { border-bottom: none; }
+    .list-item .reason { color: #f8a5a5; font-size: 0.8rem; }
+    .list-item .risk { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+    .list-item .risk.safe { background: #28a745; }
+    .list-item .risk.warning { background: #ffc107; }
+    .list-item .risk.danger { background: #dc3545; }
+    .empty { color: #666; font-style: italic; }
+    .settings input {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      background: rgba(0,0,0,0.2);
+      color: #e8e8e8;
+      font-size: 12px;
+    }
+    .settings input::placeholder { color: #666; }
+    .settings label { display: block; margin-bottom: 4px; color: #aaa; font-size: 0.85rem; }
+    .btn-save {
+      padding: 8px 16px;
+      background: #4a6fa5;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-save:hover { background: #5a7fb5; }
+    .btn-save:disabled { opacity: 0.7; cursor: not-allowed; }
+    .api-status { font-size: 0.8rem; margin-top: 4px; margin-bottom: 12px; min-height: 1.2em; }
+    .api-status.ok { color: #6cce6c; }
+    .api-status.invalid { color: #f8a5a5; }
+    .api-status.empty { color: #666; }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      color: #888;
+    }
+    .tab.active { color: #fff; border-bottom: 2px solid #4a6fa5; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🛡️ TrustGuard — Антифишинг PRO</h1>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="main">Главная</div>
+    <div class="tab" data-tab="settings">Настройки</div>
+  </div>
+
+  <div id="panel-main" class="panel active">
+    <div class="section">
+      <div class="section-title">Заблокировано переходов</div>
+      <div class="counter-big" id="counter">0</div>
+      <div style="margin-top: 8px;"><span class="status on" id="status">Защита активна</span></div>
+    </div>
+    <div class="section">
+      <div class="section-title">Последние заблокированные сайты</div>
+      <div class="list" id="last-blocked">
+        <div class="empty">Пока нет</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">Последние проверенные письма</div>
+      <div class="list" id="last-emails">
+        <div class="empty">Пока нет</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-settings" class="panel">
+    <div class="section">
+      <div class="section-title">API-ключи (необязательно)</div>
+      <div class="settings">
+        <label>Google Safe Browsing API</label>
+        <input type="password" id="api-google" placeholder="Ключ для safebrowsing.googleapis.com">
+        <div id="api-google-status" class="api-status" aria-live="polite"></div>
+        <label>VirusTotal API</label>
+        <input type="password" id="api-vt" placeholder="Ключ для virustotal.com">
+        <div id="api-vt-status" class="api-status" aria-live="polite"></div>
+        <button class="btn-save" id="btn-save">Сохранить и проверить ключи</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

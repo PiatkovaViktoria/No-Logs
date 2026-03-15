@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "TrustGuard - Антифишинг PRO",
+  "version": "1.0.0",
+  "description": "Проверка ссылок по локальной базе, Google Safe Browsing и VirusTotal. Защита в почте Gmail и Mail.ru.",
+  "permissions": [
+    "webRequest",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://safebrowsing.googleapis.com/*",
+    "https://www.virustotal.com/*",
+    "https://www.virustotal.org/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content-mail.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://e.mail.ru/*"],
+      "js": ["content-mail.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "TrustGuard - Антифишинг PRO"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["block.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
